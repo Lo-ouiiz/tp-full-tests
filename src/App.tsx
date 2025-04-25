@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { getHour, Hour } from "./modules/hour";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [hour, setHour] = useState<Hour | null>(null);
+  const [moonInputValue, setMoonInputValue] = useState(0);
+  const [sunInputValue, setSunInputValue] = useState(0);
+  const [earthInputValue, setEarthInputValue] = useState(0);
+
+  const handleGetHour = () => {
+    const result = getHour(moonInputValue, sunInputValue, earthInputValue);
+    setHour(result);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="page">
+      <div className="form">
+        <div className="input">
+          <label>Valeur cadran Lune</label>
+          <input
+            type="number"
+            min="1"
+            max="2"
+            id="moon"
+            onChange={(event) =>
+              setMoonInputValue(parseInt(event.target.value))
+            }
+          />
+        </div>
+        <div className="input">
+          <label>Valeur cadran Soleil</label>
+          <input
+            type="number"
+            min="1"
+            max="2"
+            id="sun"
+            onChange={(event) => setSunInputValue(parseInt(event.target.value))}
+          />
+        </div>
+        <div className="input">
+          <label>Valeur cadran Terre</label>
+          <input
+            type="number"
+            min="1"
+            max="2"
+            id="earth"
+            onChange={(event) =>
+              setEarthInputValue(parseInt(event.target.value))
+            }
+          />
+        </div>
+        <button
+          disabled={
+            moonInputValue == 0 || sunInputValue == 0 || earthInputValue == 0
+          }
+          onClick={handleGetHour}
+        >
+          Calculer l'heure
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      {hour && <span>Heure : {hour}</span>}
+    </div>
+  );
 }
 
-export default App
+export default App;

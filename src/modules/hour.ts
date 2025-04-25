@@ -1,4 +1,4 @@
-type Hour = "mortin" | "aprenoon" | "soirning" | "nuight";
+export type Hour = "mortin" | "aprenoon" | "soirning" | "nuight";
 
 export function getHour(moon: number, sun: number, earth: number): Hour {
   const hourResult = calculateTotal(moon, sun, earth);
