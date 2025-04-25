@@ -51,6 +51,7 @@ function App() {
           />
         </div>
         <button
+          id="form-button"
           disabled={
             moonInputValue == 0 || sunInputValue == 0 || earthInputValue == 0
           }
@@ -60,7 +61,7 @@ function App() {
         </button>
       </div>
 
-      {hour && <span>Heure : {hour}</span>}
+      {hour && <span id="result">Heure : {hour}</span>}
     </div>
   );
 }
